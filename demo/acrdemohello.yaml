@@ -1,0 +1,19 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: hello-arc
+  namespace: prod
+spec:
+  releaseName: hello-arc-prod
+  chart:
+    git: https://github.com/jaganathprajlax/arc-demo-k8s.git
+    path: arc-demo-k8s/demo
+    ref: master
+  values:
+    image:
+      repository: jaganathprajlax/arc-demo-k8s
+      tag: latest
+    replicaCount: 1
+    env:
+      name: MESSAGE
+      value: Azure Arc enabled K8s GitOps Demo!
