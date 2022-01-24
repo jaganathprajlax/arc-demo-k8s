@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: nginx
+  namespace: hello-arc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  namespace: hello-arc
+  labels:
+    app: nginx
+spec:
+  ports:
+  - name: http
+    port: 5050
+    targetPort: 80
+  selector:
+    app: nginx
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: hello-arc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: nginx
+        version: v1
+    spec:
+      serviceAccountName: nginx
+      containers:
+      - image: nginx:1.21.0
+        imagePullPolicy: IfNotPresent
+        name: nginx
+        ports:
+        - containerPort: 80
