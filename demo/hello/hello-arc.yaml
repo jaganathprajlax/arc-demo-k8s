@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: hello-arc
-  namespace: tes
+  namespace: hello-arc
 spec:
   type: ClusterIP
   ports:
@@ -15,7 +15,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hello-arc
-  namespace: tes
+  namespace: hello-arc
 spec:
   replicas: 3
   selector:
